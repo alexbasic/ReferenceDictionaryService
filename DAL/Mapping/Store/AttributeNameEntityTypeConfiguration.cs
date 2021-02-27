@@ -26,6 +26,12 @@ namespace DAL.Mapping
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.HasOne(x => x.ObjectType)
+                .WithMany()
+                .HasForeignKey(x => x.ObjectTypeId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Property(x => x.DefaultValue)
                 .HasMaxLength(Constants.AttributeDefaultValueSize);
 

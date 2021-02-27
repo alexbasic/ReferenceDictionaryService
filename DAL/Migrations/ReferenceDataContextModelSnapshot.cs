@@ -132,7 +132,7 @@ namespace DAL.Migrations
                     b.Property<bool>("Nullable")
                         .HasColumnType("bit");
 
-                    b.Property<long>("ObjectEntityId")
+                    b.Property<long>("ObjectTypeId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("PreviousEntityId")
@@ -151,7 +151,7 @@ namespace DAL.Migrations
 
                     b.HasIndex("Name");
 
-                    b.HasIndex("ObjectEntityId");
+                    b.HasIndex("ObjectTypeId");
 
                     b.HasIndex("StartDate");
 
@@ -229,16 +229,62 @@ namespace DAL.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)");
-
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("Guid")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("ObjectTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("PreviousEntityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EndDate");
+
+                    b.HasIndex("Guid")
+                        .IsUnique();
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("ObjectTypeId");
+
+                    b.HasIndex("StartDate");
+
+                    b.ToTable("ObjectEntity", "eav");
+                });
+
+            modelBuilder.Entity("Model.Store.ObjectEntityType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Guid>("Author")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -258,16 +304,13 @@ namespace DAL.Migrations
 
                     b.HasIndex("EndDate");
 
-                    b.HasIndex("Guid")
-                        .IsUnique();
-
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("Name");
 
                     b.HasIndex("StartDate");
 
-                    b.ToTable("ObjectEntity", "eav");
+                    b.ToTable("ObjectEntityType", "eav");
                 });
 
             modelBuilder.Entity("Model.Store.ObjectValue", b =>
@@ -333,15 +376,26 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Model.Store.ObjectEntity", "ObjectEntity")
+                    b.HasOne("Model.Store.ObjectEntityType", "ObjectType")
                         .WithMany()
-                        .HasForeignKey("ObjectEntityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("ObjectTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("DataType");
 
-                    b.Navigation("ObjectEntity");
+                    b.Navigation("ObjectType");
+                });
+
+            modelBuilder.Entity("Model.Store.ObjectEntity", b =>
+                {
+                    b.HasOne("Model.Store.ObjectEntityType", "ObjectType")
+                        .WithMany()
+                        .HasForeignKey("ObjectTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ObjectType");
                 });
 
             modelBuilder.Entity("Model.Store.ObjectValue", b =>

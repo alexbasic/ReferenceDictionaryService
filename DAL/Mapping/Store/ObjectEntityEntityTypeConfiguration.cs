@@ -13,17 +13,15 @@ namespace DAL.Mapping
         {
             builder.ToTable(nameof(ObjectEntity), ReferenceDataContext.SchemaName);
 
-            builder.Property(x => x.Name)
-                .HasMaxLength(Constants.ObjectNameSize)
-                .IsRequired();
-
-            builder.Property(x => x.Description)
-                .HasMaxLength(Constants.DescriptionSize);
+            builder.HasOne(x => x.ObjectType)
+                .WithMany()
+                .HasForeignKey(x => x.ObjectTypeId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(x => x.Guid)
                 .ValueGeneratedOnAdd();
 
-            builder.HasIndex(x => x.Name);
             builder.HasIndex(x => x.Guid).IsUnique();
         }
     }

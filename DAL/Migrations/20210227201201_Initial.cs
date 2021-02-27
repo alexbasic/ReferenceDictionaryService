@@ -59,7 +59,7 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ObjectEntity",
+                name: "ObjectEntityType",
                 schema: "eav",
                 columns: table => new
                 {
@@ -67,7 +67,6 @@ namespace DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
-                    Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Author = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -77,7 +76,7 @@ namespace DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ObjectEntity", x => x.Id);
+                    table.PrimaryKey("PK_ObjectEntityType", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -89,7 +88,7 @@ namespace DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     DataTypeId = table.Column<long>(type: "bigint", nullable: false),
-                    ObjectEntityId = table.Column<long>(type: "bigint", nullable: false),
+                    ObjectTypeId = table.Column<long>(type: "bigint", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
                     MaxSize = table.Column<int>(type: "int", nullable: true),
                     DefaultValue = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -114,12 +113,40 @@ namespace DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_AttributeName_ObjectEntity_ObjectEntityId",
-                        column: x => x.ObjectEntityId,
+                        name: "FK_AttributeName_ObjectEntityType_ObjectTypeId",
+                        column: x => x.ObjectTypeId,
                         principalSchema: "eav",
-                        principalTable: "ObjectEntity",
+                        principalTable: "ObjectEntityType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ObjectEntity",
+                schema: "eav",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ObjectTypeId = table.Column<long>(type: "bigint", nullable: false),
+                    Author = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PreviousEntityId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ObjectEntity", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ObjectEntity_ObjectEntityType_ObjectTypeId",
+                        column: x => x.ObjectTypeId,
+                        principalSchema: "eav",
+                        principalTable: "ObjectEntityType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -183,10 +210,10 @@ namespace DAL.Migrations
                 column: "Name");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AttributeName_ObjectEntityId",
+                name: "IX_AttributeName_ObjectTypeId",
                 schema: "eav",
                 table: "AttributeName",
-                column: "ObjectEntityId");
+                column: "ObjectTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AttributeName_StartDate",
@@ -275,15 +302,39 @@ namespace DAL.Migrations
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ObjectEntity_Name",
+                name: "IX_ObjectEntity_ObjectTypeId",
                 schema: "eav",
                 table: "ObjectEntity",
-                column: "Name");
+                column: "ObjectTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ObjectEntity_StartDate",
                 schema: "eav",
                 table: "ObjectEntity",
+                column: "StartDate");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ObjectEntityType_EndDate",
+                schema: "eav",
+                table: "ObjectEntityType",
+                column: "EndDate");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ObjectEntityType_IsDeleted",
+                schema: "eav",
+                table: "ObjectEntityType",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ObjectEntityType_Name",
+                schema: "eav",
+                table: "ObjectEntityType",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ObjectEntityType_StartDate",
+                schema: "eav",
+                table: "ObjectEntityType",
                 column: "StartDate");
 
             migrationBuilder.CreateIndex(
@@ -338,11 +389,15 @@ namespace DAL.Migrations
                 schema: "eav");
 
             migrationBuilder.DropTable(
+                name: "ObjectEntity",
+                schema: "eav");
+
+            migrationBuilder.DropTable(
                 name: "DataType",
                 schema: "eav");
 
             migrationBuilder.DropTable(
-                name: "ObjectEntity",
+                name: "ObjectEntityType",
                 schema: "eav");
         }
     }

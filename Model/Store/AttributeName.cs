@@ -12,8 +12,8 @@ namespace Model.Store
         public long DataTypeId { get; set; }
         public virtual DataType DataType { get; set; }
 
-        public long ObjectEntityId { get; set; }
-        public virtual ObjectEntity ObjectEntity { get; set; }
+        public long ObjectTypeId { get; set; }
+        public virtual ObjectEntityType ObjectType { get; set; }
 
         public string Description { get; set; }
 
