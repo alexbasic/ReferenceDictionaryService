@@ -7,6 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{2DABEE2F-6347-4B3A-BD9E-AAB15505EB50}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{E47DD87E-C7DF-4CB0-BE1B-938E9CBAD9A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CBFA2820-5674-452A-B662-5EAC142FA3A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dal.Tests", "Dal.Tests\Dal.Tests.csproj", "{6361A75E-8E7B-43AD-8FA6-9821E93CD9A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +27,20 @@ Global
 		{2DABEE2F-6347-4B3A-BD9E-AAB15505EB50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DABEE2F-6347-4B3A-BD9E-AAB15505EB50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DABEE2F-6347-4B3A-BD9E-AAB15505EB50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E47DD87E-C7DF-4CB0-BE1B-938E9CBAD9A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E47DD87E-C7DF-4CB0-BE1B-938E9CBAD9A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E47DD87E-C7DF-4CB0-BE1B-938E9CBAD9A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E47DD87E-C7DF-4CB0-BE1B-938E9CBAD9A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6361A75E-8E7B-43AD-8FA6-9821E93CD9A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6361A75E-8E7B-43AD-8FA6-9821E93CD9A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6361A75E-8E7B-43AD-8FA6-9821E93CD9A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6361A75E-8E7B-43AD-8FA6-9821E93CD9A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6361A75E-8E7B-43AD-8FA6-9821E93CD9A0} = {CBFA2820-5674-452A-B662-5EAC142FA3A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8427BD8E-4819-4334-A494-EDE0D921F1D1}

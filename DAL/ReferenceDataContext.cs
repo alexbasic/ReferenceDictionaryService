@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Model;
 using Model.FilesStore;
 using Model.Store;
-using System;
 
 namespace DAL
 {
@@ -19,9 +17,9 @@ namespace DAL
 
         public DbSet<BigObject> BigObjects { get; set; }
 
-
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite(
-                @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\temp\test_db\reference_db.mdf;Integrated Security=True;Connect Timeout=30");
+        public ReferenceDataContext(DbContextOptions<ReferenceDataContext> options)
+        : base(options)
+        {
+        }
     }
 }
