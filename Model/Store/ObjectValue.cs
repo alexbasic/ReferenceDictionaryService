@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Model.Common;
 
 namespace Model.Store
 {
-    public class ObjectValue
+    /// <summary>
+    /// Хранилище значений атрибутов
+    /// </summary>
+    public class ObjectValue : ArchiveEntityWithAudit
     {
-        public long Id { get; set; }
         public long ObjectEntityId { get; set; }
         public ObjectEntity Object { get; set; }
         public long AttributeNameId { get; set; }

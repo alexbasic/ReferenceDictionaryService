@@ -1,24 +1,27 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DAL.Mapping.Common;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Model.Constants;
 using Model.Store;
 
 namespace DAL.Mapping
 {
-    public class DataTypeEntityTypeConfiguration : IEntityTypeConfiguration<DataType>
+    public class DataTypeEntityTypeConfiguration : ArchiveEntityWithAuditEntityTypeConfiguration<DataType>
     {
-        public void Configure(EntityTypeBuilder<DataType> builder)
+        protected override void Mapping(EntityTypeBuilder<DataType> builder)
         {
             builder.ToTable(nameof(DataType), ReferenceDataContext.SchemaName);
 
-            builder.HasKey(x => x.Id);
             builder.Property(x => x.Name)
-                .HasMaxLength(128)
+                .HasMaxLength(Constants.DataTypeNameSize)
                 .IsRequired();
+
             builder.Property(x => x.Mapping)
-                .HasMaxLength(2048)
+                .HasMaxLength(Constants.DataTypeMappingSize)
                 .IsRequired();
+
             builder.Property(x => x.Description)
-                .HasMaxLength(512);
+                .HasMaxLength(Constants.DescriptionSize);
 
             builder.HasIndex(x => x.Name);
             builder.HasIndex(x => x.Mapping);

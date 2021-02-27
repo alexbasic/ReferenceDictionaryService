@@ -1,8 +1,12 @@
-﻿namespace Model.Store
+﻿using Model.Common;
+
+namespace Model.Store
 {
-    public class DataType
+    /// <summary>
+    /// Описание метаданных-типов
+    /// </summary>
+    public class DataType : ArchiveEntityWithAudit
     {
-        public long Id { get; set; }
         public string Name { get; set; }
         public string Mapping { get; set; }
         public string Description { get; set; }

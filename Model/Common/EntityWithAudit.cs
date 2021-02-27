@@ -4,11 +4,9 @@ using System.Text;
 
 namespace Model.Common
 {
-    public class EntityWithAudit
+    public abstract class EntityWithAudit : Entity
     {
-        public Guid Creator { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public Guid Updated { get; set; }
+        public Guid Author { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 }

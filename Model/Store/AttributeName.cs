@@ -1,14 +1,21 @@
-﻿namespace Model.Store
+﻿using Model.Common;
+
+namespace Model.Store
 {
-    public class AttributeName
+    /// <summary>
+    /// Описание матаданных-атрибутов
+    /// </summary>
+    public class AttributeName : ArchiveEntityWithAudit
     {
-        public long Id { get; set; }
         public string Name { get; set; }
+
         public long DataTypeId { get; set; }
         public DataType DataType { get; set; }
-        public string Description { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public long ObjectEntityId { get; set; }
+        public ObjectEntity ObjectEntity { get; set; }
+
+        public string Description { get; set; }
 
         public int? MaxSize { get; set; }
         public string DefaultValue { get; set; }

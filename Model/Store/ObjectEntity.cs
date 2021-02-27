@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Model.Common;
+using System;
 
 namespace Model.Store
 {
-    public class ObjectEntity
+    /// <summary>
+    /// Описание метаданных-объектов
+    /// </summary>
+    public class ObjectEntity : ArchiveEntityWithAudit
     {
-        public long Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public Guid Guid { get; set; }
