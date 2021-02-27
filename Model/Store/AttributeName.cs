@@ -10,10 +10,10 @@ namespace Model.Store
         public string Name { get; set; }
 
         public long DataTypeId { get; set; }
-        public DataType DataType { get; set; }
+        public virtual DataType DataType { get; set; }
 
         public long ObjectEntityId { get; set; }
-        public ObjectEntity ObjectEntity { get; set; }
+        public virtual ObjectEntity ObjectEntity { get; set; }
 
         public string Description { get; set; }
 

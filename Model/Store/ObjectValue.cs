@@ -8,9 +8,9 @@ namespace Model.Store
     public class ObjectValue : ArchiveEntityWithAudit
     {
         public long ObjectEntityId { get; set; }
-        public ObjectEntity Object { get; set; }
+        public virtual ObjectEntity Object { get; set; }
         public long AttributeNameId { get; set; }
-        public AttributeName Attribute { get; set; }
+        public virtual AttributeName Attribute { get; set; }
         public string Value { get; set; }
     }
 }
