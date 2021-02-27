@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ReferenceDataContext))]
-    [Migration("20210227143848_Initial")]
+    [Migration("20210227144122_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,7 +38,8 @@ namespace DAL.Migrations
                         .HasDefaultValueSql("getdate()");
 
                     b.Property<byte[]>("Data")
-                        .HasColumnType("[varbinary](max) NOT NULL");
+                        .IsRequired()
+                        .HasColumnType("[varbinary](max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
