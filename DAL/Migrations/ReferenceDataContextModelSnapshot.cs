@@ -69,7 +69,8 @@ namespace DAL.Migrations
 
                     b.HasIndex("EndDate");
 
-                    b.HasIndex("Guid");
+                    b.HasIndex("Guid")
+                        .IsUnique();
 
                     b.HasIndex("IsDeleted");
 
@@ -257,7 +258,8 @@ namespace DAL.Migrations
 
                     b.HasIndex("EndDate");
 
-                    b.HasIndex("Guid");
+                    b.HasIndex("Guid")
+                        .IsUnique();
 
                     b.HasIndex("IsDeleted");
 

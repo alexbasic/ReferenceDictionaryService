@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ReferenceDataContext))]
-    [Migration("20210227145139_Initial")]
+    [Migration("20210227150108_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,7 +71,8 @@ namespace DAL.Migrations
 
                     b.HasIndex("EndDate");
 
-                    b.HasIndex("Guid");
+                    b.HasIndex("Guid")
+                        .IsUnique();
 
                     b.HasIndex("IsDeleted");
 
@@ -259,7 +260,8 @@ namespace DAL.Migrations
 
                     b.HasIndex("EndDate");
 
-                    b.HasIndex("Guid");
+                    b.HasIndex("Guid")
+                        .IsUnique();
 
                     b.HasIndex("IsDeleted");
 

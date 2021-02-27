@@ -204,7 +204,8 @@ namespace DAL.Migrations
                 name: "IX_BigObject_Guid",
                 schema: "boo",
                 table: "BigObject",
-                column: "Guid");
+                column: "Guid",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_BigObject_IsDeleted",
@@ -264,7 +265,8 @@ namespace DAL.Migrations
                 name: "IX_ObjectEntity_Guid",
                 schema: "eav",
                 table: "ObjectEntity",
-                column: "Guid");
+                column: "Guid",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ObjectEntity_IsDeleted",

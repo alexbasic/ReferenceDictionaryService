@@ -32,7 +32,7 @@ namespace DAL.Mapping.FilesStore
                 .IsRequired();
 
             builder.HasIndex(x => x.Name);
-            builder.HasIndex(x => x.Guid);
+            builder.HasIndex(x => x.Guid).IsUnique();
         }
     }
 }

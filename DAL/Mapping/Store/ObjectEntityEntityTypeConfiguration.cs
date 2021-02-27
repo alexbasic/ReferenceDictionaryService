@@ -24,7 +24,7 @@ namespace DAL.Mapping
                 .ValueGeneratedOnAdd();
 
             builder.HasIndex(x => x.Name);
-            builder.HasIndex(x => x.Guid);
+            builder.HasIndex(x => x.Guid).IsUnique();
         }
     }
 }
