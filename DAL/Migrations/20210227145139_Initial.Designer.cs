@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ReferenceDataContext))]
-    [Migration("20210227144122_Initial")]
+    [Migration("20210227145139_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -330,7 +330,7 @@ namespace DAL.Migrations
                     b.HasOne("Model.Store.DataType", "DataType")
                         .WithMany()
                         .HasForeignKey("DataTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Model.Store.ObjectEntity", "ObjectEntity")
@@ -349,13 +349,13 @@ namespace DAL.Migrations
                     b.HasOne("Model.Store.AttributeName", "Attribute")
                         .WithMany()
                         .HasForeignKey("AttributeNameId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Model.Store.ObjectEntity", "Object")
                         .WithMany()
                         .HasForeignKey("ObjectEntityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Attribute");

@@ -17,12 +17,14 @@ namespace DAL.Mapping
             builder.HasOne(x => x.Attribute)
                 .WithMany()
                 .HasForeignKey(x => x.AttributeNameId)
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.Object)
                 .WithMany()
                 .HasForeignKey(x => x.ObjectEntityId)
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(x => x.Value)
                 .HasMaxLength(Constants.AttributeValueSize)

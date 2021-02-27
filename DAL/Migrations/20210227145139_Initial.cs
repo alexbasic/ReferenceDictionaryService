@@ -112,7 +112,7 @@ namespace DAL.Migrations
                         principalSchema: "eav",
                         principalTable: "DataType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AttributeName_ObjectEntity_ObjectEntityId",
                         column: x => x.ObjectEntityId,
@@ -148,14 +148,14 @@ namespace DAL.Migrations
                         principalSchema: "eav",
                         principalTable: "AttributeName",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ObjectValue_ObjectEntity_ObjectEntityId",
                         column: x => x.ObjectEntityId,
                         principalSchema: "eav",
                         principalTable: "ObjectEntity",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

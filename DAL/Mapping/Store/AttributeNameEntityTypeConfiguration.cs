@@ -23,7 +23,8 @@ namespace DAL.Mapping
             builder.HasOne(x => x.DataType)
                 .WithMany()
                 .HasForeignKey(x => x.DataTypeId)
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(x => x.DefaultValue)
                 .HasMaxLength(Constants.AttributeDefaultValueSize);
