@@ -20,9 +20,7 @@ namespace DAL.Mapping.FilesStore
                 .HasMaxLength(Constants.BigObjectDataNameSize)
                 .IsRequired();
 
-            builder.Property(x => x.Data)
-                .HasMaxLength(Constants.BigObjectDataSize)
-                .IsRequired();
+            builder.Property(x => x.Data).HasColumnType($"[varbinary]({Constants.BigObjectDataSize}) NOT NULL");
 
             builder.Property(x => x.Guid)
                 .ValueGeneratedOnAdd();
