@@ -36,7 +36,7 @@ namespace DAL.Migrations
                         .HasDefaultValueSql("getdate()");
 
                     b.Property<byte[]>("Data")
-                        .HasColumnType("[varbinary](10485760)");
+                        .HasColumnType("[varbinary](max) NOT NULL");
 
                     b.Property<string>("Description")
                         .IsRequired()

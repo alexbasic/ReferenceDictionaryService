@@ -21,7 +21,7 @@ namespace DAL.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
-                    Data = table.Column<byte[]>(type: "[varbinary](10485760)", nullable: true),
+                    Data = table.Column<byte[]>(type: "[varbinary](max) NOT NULL", nullable: true),
                     Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
                     Author = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
