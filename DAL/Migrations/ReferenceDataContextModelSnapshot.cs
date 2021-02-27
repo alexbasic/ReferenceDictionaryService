@@ -15,6 +15,7 @@ namespace DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("eav")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -30,25 +31,32 @@ namespace DAL.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<byte[]>("Data")
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("[varbinary](10485760)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("Guid")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<long>("PreviousEntityId")
                         .HasColumnType("bigint");
@@ -58,7 +66,17 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BigObjects");
+                    b.HasIndex("EndDate");
+
+                    b.HasIndex("Guid");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("Name");
+
+                    b.HasIndex("StartDate");
+
+                    b.ToTable("BigObject", "boo");
                 });
 
             modelBuilder.Entity("Model.Store.AttributeName", b =>
@@ -72,16 +90,20 @@ namespace DAL.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<long>("DataTypeId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("DefaultValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
@@ -93,13 +115,17 @@ namespace DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("MaxValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("MinValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("Nullable")
                         .HasColumnType("bit");
@@ -117,9 +143,17 @@ namespace DAL.Migrations
 
                     b.HasIndex("DataTypeId");
 
+                    b.HasIndex("EndDate");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("Name");
+
                     b.HasIndex("ObjectEntityId");
 
-                    b.ToTable("Attributes");
+                    b.HasIndex("StartDate");
+
+                    b.ToTable("AttributeName", "eav");
                 });
 
             modelBuilder.Entity("Model.Store.DataType", b =>
@@ -133,10 +167,13 @@ namespace DAL.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
@@ -145,10 +182,14 @@ namespace DAL.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Mapping")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<long>("PreviousEntityId")
                         .HasColumnType("bigint");
@@ -158,7 +199,17 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DataTypes");
+                    b.HasIndex("EndDate");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("Mapping");
+
+                    b.HasIndex("Name");
+
+                    b.HasIndex("StartDate");
+
+                    b.ToTable("DataType", "eav");
                 });
 
             modelBuilder.Entity("Model.Store.ObjectEntity", b =>
@@ -172,22 +223,28 @@ namespace DAL.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("Guid")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<long>("PreviousEntityId")
                         .HasColumnType("bigint");
@@ -197,7 +254,17 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ObjectEntites");
+                    b.HasIndex("EndDate");
+
+                    b.HasIndex("Guid");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("Name");
+
+                    b.HasIndex("StartDate");
+
+                    b.ToTable("ObjectEntity", "eav");
                 });
 
             modelBuilder.Entity("Model.Store.ObjectValue", b =>
@@ -214,7 +281,9 @@ namespace DAL.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
@@ -232,15 +301,25 @@ namespace DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AttributeNameId");
 
+                    b.HasIndex("EndDate");
+
+                    b.HasIndex("IsDeleted");
+
                     b.HasIndex("ObjectEntityId");
 
-                    b.ToTable("Objects");
+                    b.HasIndex("StartDate");
+
+                    b.HasIndex("Value");
+
+                    b.ToTable("ObjectValue", "eav");
                 });
 
             modelBuilder.Entity("Model.Store.AttributeName", b =>
