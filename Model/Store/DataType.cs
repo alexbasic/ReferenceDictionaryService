@@ -1,4 +1,5 @@
-﻿using Model.Common;
+﻿using Infrastructure;
+using Model.Common;
 
 namespace Model.Store
 {

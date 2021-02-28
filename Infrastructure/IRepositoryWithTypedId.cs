@@ -1,12 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Infrastructure
 {
-    public interface IRepository<T> where T : Entity
+    public interface IRepositoryWithTypedId<T, TId> where T : IEntity<TId>
     {
         IQueryable<T> Query { get; }
-        long Create(T entity);
+        TId Create(T entity);
         void Update(T entity);
         void Delete(T entity);
     }
