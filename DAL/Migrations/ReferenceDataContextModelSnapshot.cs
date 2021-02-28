@@ -59,11 +59,13 @@ namespace DAL.Migrations
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
 
-                    b.Property<long>("PreviousEntityId")
+                    b.Property<long?>("PreviousEntityId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.HasKey("Id");
 
@@ -135,11 +137,13 @@ namespace DAL.Migrations
                     b.Property<long>("ObjectTypeId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("PreviousEntityId")
+                    b.Property<long?>("PreviousEntityId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.HasKey("Id");
 
@@ -312,11 +316,13 @@ namespace DAL.Migrations
                     b.Property<long>("ObjectTypeId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("PreviousEntityId")
+                    b.Property<long?>("PreviousEntityId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.HasKey("Id");
 
@@ -364,11 +370,13 @@ namespace DAL.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<long>("PreviousEntityId")
+                    b.Property<long?>("PreviousEntityId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.HasKey("Id");
 
@@ -410,11 +418,13 @@ namespace DAL.Migrations
                     b.Property<long>("ObjectEntityId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("PreviousEntityId")
+                    b.Property<long?>("PreviousEntityId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<string>("Value")
                         .IsRequired()

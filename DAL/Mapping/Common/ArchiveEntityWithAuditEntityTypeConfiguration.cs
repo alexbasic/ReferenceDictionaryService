@@ -14,7 +14,7 @@ namespace DAL.Mapping.Common
             builder.Property(x => x.Author);
             builder.Property(x => x.CreatedAt).HasDefaultValueSql("getdate()");
             builder.Property(x => x.IsDeleted);
-            builder.Property(x => x.StartDate);
+            builder.Property(x => x.StartDate).HasDefaultValueSql("getdate()");
             builder.Property(x => x.EndDate);
 
             builder.Property(x => x.PreviousEntityId);

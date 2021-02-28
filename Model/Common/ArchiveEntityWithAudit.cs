@@ -7,6 +7,6 @@ namespace Model.Common
         public bool IsDeleted { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public long PreviousEntityId { get; set; }
+        public long? PreviousEntityId { get; set; }
     }
 }
