@@ -46,7 +46,7 @@ namespace DAL.Mapping
             builder.Property(x => x.MaxValue)
                 .HasMaxLength(Constants.AttributeMaxValueSize);
 
-            builder.Property(x => x.Nullable);
+            builder.Property(x => x.Nullable).HasDefaultValue(false);
 
 
             builder.HasIndex(x => x.Name);

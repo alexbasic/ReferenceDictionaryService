@@ -26,7 +26,7 @@ namespace DAL.Migrations
                     Description = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
                     Author = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PreviousEntityId = table.Column<long>(type: "bigint", nullable: true)
@@ -63,7 +63,7 @@ namespace DAL.Migrations
                     Description = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
                     Author = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PreviousEntityId = table.Column<long>(type: "bigint", nullable: true)
@@ -88,10 +88,10 @@ namespace DAL.Migrations
                     DefaultValue = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     MaxValue = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     MinValue = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Nullable = table.Column<bool>(type: "bit", nullable: false),
+                    Nullable = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     Author = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PreviousEntityId = table.Column<long>(type: "bigint", nullable: true)
@@ -126,7 +126,7 @@ namespace DAL.Migrations
                     ObjectTypeId = table.Column<long>(type: "bigint", nullable: false),
                     Author = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PreviousEntityId = table.Column<long>(type: "bigint", nullable: true)
@@ -155,7 +155,7 @@ namespace DAL.Migrations
                     Value = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     Author = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PreviousEntityId = table.Column<long>(type: "bigint", nullable: true)
