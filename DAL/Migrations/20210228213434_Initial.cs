@@ -122,7 +122,7 @@ namespace DAL.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Guid = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "newid()"),
                     ObjectTypeId = table.Column<long>(type: "bigint", nullable: false),
                     Author = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),

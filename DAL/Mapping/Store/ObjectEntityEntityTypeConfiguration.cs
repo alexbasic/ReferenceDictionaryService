@@ -19,8 +19,7 @@ namespace DAL.Mapping
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Property(x => x.Guid)
-                .ValueGeneratedOnAdd();
+            builder.Property(x => x.Guid).HasDefaultValueSql("newid()");
 
             builder.HasIndex(x => x.Guid).IsUnique();
             builder.HasIndex(x => x.ObjectTypeId);

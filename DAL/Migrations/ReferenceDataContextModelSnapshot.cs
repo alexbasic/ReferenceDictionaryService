@@ -314,7 +314,8 @@ namespace DAL.Migrations
 
                     b.Property<Guid>("Guid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("newid()");
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
