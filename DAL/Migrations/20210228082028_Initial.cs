@@ -44,14 +44,8 @@ namespace DAL.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Mapping = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
-                    Author = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getdate()"),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    PreviousEntityId = table.Column<long>(type: "bigint", nullable: false)
+                    Kind = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -253,34 +247,16 @@ namespace DAL.Migrations
                 column: "StartDate");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DataType_EndDate",
+                name: "IX_DataType_Kind",
                 schema: "eav",
                 table: "DataType",
-                column: "EndDate");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DataType_IsDeleted",
-                schema: "eav",
-                table: "DataType",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DataType_Mapping",
-                schema: "eav",
-                table: "DataType",
-                column: "Mapping");
+                column: "Kind");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DataType_Name",
                 schema: "eav",
                 table: "DataType",
                 column: "Name");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DataType_StartDate",
-                schema: "eav",
-                table: "DataType",
-                column: "StartDate");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ObjectEntity_EndDate",

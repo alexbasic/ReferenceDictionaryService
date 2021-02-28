@@ -50,17 +50,36 @@ namespace Domain
 
             var attributes = _repoFactory.GetRepository<AttributeName>().Query
                 .Where(x => !x.IsDeleted && x.ObjectTypeId == objectTypeId && x.StartDate >= startFrom)
-                .Select(x => new ColumnMetadata 
+                .Select(x => new ColumnMetadata
                 {
+                    Id = x.Id,
                     Name = x.Name,
-                    DataType = ResolveType(x.DataType.Mapping)
+                    DataType = ResolveType(x.DataType.Kind)
                 })
+                .OrderBy(x=>x.Id)
                 .ToArray();
 
-            //var rows = _repoFactory.GetRepository<ObjectValue>().Query
-            //    .Where(x => !x.IsDeleted && x.StartDate >= startFrom && x.ObjectEntityId == objectId /*&& x.AttributeNameId == attributeId*/)
-            //    .GroupBy(x => x.Attribute.Id).Select(x=>x.);
-            //    .Select(x => new DataRow {  Columns = });
+            var rows = _repoFactory.GetRepository<ObjectValue>().Query
+                .Where(x => !x.IsDeleted && x.StartDate >= startFrom &&
+                    x.ObjectEntityId == objectTypeId /*&& x.AttributeNameId == attributeId*/)
+                .Select(x=> new 
+                {
+                    ObjectId = x.ObjectEntityId,
+                    AttributeNameId = x.AttributeNameId,
+                    Type = x.Attribute.DataType.Kind,
+                    AttributeName = x.Attribute.Name,
+                    Value = x.Value
+                })
+                .GroupBy(x => x.ObjectId)
+                .ToArray()
+                .Select(x =>
+                new DataRow 
+                {
+                    Columns = x
+                    .OrderBy(y => y.AttributeNameId)
+                    .Select(y => Deserialize(y.Type, y.Value))
+                    .ToArray()
+                });
 
             return new ComplexObject
             {
@@ -70,9 +89,20 @@ namespace Domain
             };
         }
 
-        private Type ResolveType(string name)
+        private Type ResolveType(DataTypeKind dataTypeKind)
         {
-            return Type.GetType(name, false) ?? typeof(string);
+            switch (dataTypeKind) 
+            {
+                default: return typeof(string);
+            }
+        }
+
+        private object Deserialize(DataTypeKind dataTypeKind, string value)
+        {
+            switch (dataTypeKind)
+            {
+                default: return value;
+            }
         }
     }
 

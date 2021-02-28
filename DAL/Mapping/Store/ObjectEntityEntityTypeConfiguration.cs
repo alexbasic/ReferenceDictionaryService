@@ -23,6 +23,7 @@ namespace DAL.Mapping
                 .ValueGeneratedOnAdd();
 
             builder.HasIndex(x => x.Guid).IsUnique();
+            builder.HasIndex(x => x.ObjectTypeId);
         }
     }
 }

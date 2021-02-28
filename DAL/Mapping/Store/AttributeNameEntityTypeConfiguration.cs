@@ -50,6 +50,7 @@ namespace DAL.Mapping
 
 
             builder.HasIndex(x => x.Name);
+            builder.HasIndex(x => x.ObjectTypeId);
         }
     }
 }

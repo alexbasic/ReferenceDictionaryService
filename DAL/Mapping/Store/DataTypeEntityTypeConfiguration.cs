@@ -6,25 +6,25 @@ using Model.Store;
 
 namespace DAL.Mapping
 {
-    public class DataTypeEntityTypeConfiguration : ArchiveEntityWithAuditEntityTypeConfiguration<DataType>
+    public class DataTypeEntityTypeConfiguration : IEntityTypeConfiguration<DataType>
     {
-        protected override void Mapping(EntityTypeBuilder<DataType> builder)
+        public void Configure(EntityTypeBuilder<DataType> builder)
         {
             builder.ToTable(nameof(DataType), ReferenceDataContext.SchemaName);
+
+            builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Name)
                 .HasMaxLength(Constants.DataTypeNameSize)
                 .IsRequired();
 
-            builder.Property(x => x.Mapping)
-                .HasMaxLength(Constants.DataTypeMappingSize)
-                .IsRequired();
+            builder.Property(x => x.Kind);
 
             builder.Property(x => x.Description)
                 .HasMaxLength(Constants.DescriptionSize);
 
             builder.HasIndex(x => x.Name);
-            builder.HasIndex(x => x.Mapping);
+            builder.HasIndex(x => x.Kind);
         }
     }
 }

@@ -31,6 +31,8 @@ namespace DAL.Mapping
                 .IsRequired();
 
             builder.HasIndex(x => x.Value);
+            builder.HasIndex(x => x.ObjectEntityId);
+            builder.HasIndex(x => x.AttributeNameId);
         }
     }
 }
