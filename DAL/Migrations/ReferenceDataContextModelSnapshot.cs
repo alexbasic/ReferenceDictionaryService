@@ -184,6 +184,104 @@ namespace DAL.Migrations
                     b.HasIndex("Name");
 
                     b.ToTable("DataType", "eav");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Kind = 1,
+                            Name = "Байт"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Kind = 2,
+                            Name = "Целое без знака 16 бит"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Kind = 3,
+                            Name = "Целое без знака 32 бита"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Kind = 4,
+                            Name = "Целое без знака 64 бита"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Kind = 5,
+                            Name = "Целое 8 бит"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Kind = 6,
+                            Name = "Целое 16 бит"
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            Kind = 7,
+                            Name = "Целое 32 бита"
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            Kind = 8,
+                            Name = "Целое 64 бита"
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            Kind = 9,
+                            Name = "Десятичное (финансовое)"
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            Kind = 10,
+                            Name = "С плавающей запятой"
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            Kind = 11,
+                            Name = "С плавающей запятой двойной точности"
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            Kind = 12,
+                            Name = "Глобальный уникальный идентификатор (GUID)"
+                        },
+                        new
+                        {
+                            Id = 13L,
+                            Kind = 13,
+                            Name = "Строка"
+                        },
+                        new
+                        {
+                            Id = 14L,
+                            Kind = 14,
+                            Name = "Символ"
+                        },
+                        new
+                        {
+                            Id = 15L,
+                            Kind = 15,
+                            Name = "Дата и время"
+                        },
+                        new
+                        {
+                            Id = 16L,
+                            Kind = 16,
+                            Name = "Дата, время и часовой пояс"
+                        });
                 });
 
             modelBuilder.Entity("Model.Store.ObjectEntity", b =>

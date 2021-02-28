@@ -179,6 +179,30 @@ namespace DAL.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.InsertData(
+                schema: "eav",
+                table: "DataType",
+                columns: new[] { "Id", "Description", "Kind", "Name" },
+                values: new object[,]
+                {
+                    { 1L, null, 1, "Байт" },
+                    { 2L, null, 2, "Целое без знака 16 бит" },
+                    { 3L, null, 3, "Целое без знака 32 бита" },
+                    { 4L, null, 4, "Целое без знака 64 бита" },
+                    { 5L, null, 5, "Целое 8 бит" },
+                    { 6L, null, 6, "Целое 16 бит" },
+                    { 7L, null, 7, "Целое 32 бита" },
+                    { 8L, null, 8, "Целое 64 бита" },
+                    { 9L, null, 9, "Десятичное (финансовое)" },
+                    { 10L, null, 10, "С плавающей запятой" },
+                    { 11L, null, 11, "С плавающей запятой двойной точности" },
+                    { 12L, null, 12, "Глобальный уникальный идентификатор (GUID)" },
+                    { 13L, null, 13, "Строка" },
+                    { 14L, null, 14, "Символ" },
+                    { 15L, null, 15, "Дата и время" },
+                    { 16L, null, 16, "Дата, время и часовой пояс" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AttributeName_DataTypeId",
                 schema: "eav",

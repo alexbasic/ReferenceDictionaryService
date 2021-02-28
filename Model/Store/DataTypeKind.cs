@@ -20,6 +20,9 @@
 
         String = 13,
 
-        Char = 14
+        Char = 14,
+
+        DateTime = 15,
+        DateTimeOffset = 16
     }
 }
