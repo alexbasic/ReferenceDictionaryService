@@ -8,8 +8,8 @@ namespace Dal.Tests
         public ReferenceDataContext CreateDbContext()
         {
             var optionsBuilder = new DbContextOptionsBuilder<ReferenceDataContext>();
-            optionsBuilder.UseSqlite(
-                @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\temp\test_db\reference_db.mdf;Integrated Security=True;Connect Timeout=30");
+            optionsBuilder.UseSqlServer(
+                @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=E:\TEMP\TEST_DB\REFERENCE_DB.MDF;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False");
 
             return new ReferenceDataContext(optionsBuilder.Options);
         }

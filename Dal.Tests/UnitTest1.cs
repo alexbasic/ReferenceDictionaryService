@@ -21,9 +21,10 @@ namespace Dal.Tests
         {
             using (var context = new InTestReferenceDataContextFactory().CreateDbContext())
             {
-                var objectEntityTypeRepo = new Repository<ObjectEntityType>(context);
-                var attributeNameRepo = new Repository<AttributeName>(context);
-                var objectValueRepo = new Repository<ObjectValue>(context);
+                var rf = new ReferenceServiceTest(new TestRepositoryFactory(context));
+                var resultData = rf.GetTable(DateTime.Now, "Test");
+
+                var serialized = Newtonsoft.Json.JsonConvert.SerializeObject(resultData);
             }
             Assert.Pass();
         }
@@ -61,22 +62,23 @@ namespace Dal.Tests
         public ComplexObject GetTable(DateTime startFrom, string name)
         {
             var objectTypeId = _repoFactory.GetRepository<ObjectEntityType>().Query
-                .FirstOrDefault(x => x.Name.ToLower().Equals(name.ToLower()) && !x.IsDeleted && x.StartDate >= startFrom)?.Id ?? default(int);
+                .FirstOrDefault(x => x.Name.Equals(name) && !x.IsDeleted && x.StartDate <= startFrom)?.Id ?? default(int);
             if (objectTypeId == default(int)) throw new Exception($"Объект {name} отсутствует");
 
-            var attributes = _repoFactory.GetRepository<AttributeName>().Query
-                .Where(x => !x.IsDeleted && x.ObjectTypeId == objectTypeId && x.StartDate >= startFrom)
-                .Select(x => new ColumnMetadata
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    DataType = ResolveType(x.DataType.Kind)
-                })
+            var attributesTuple = _repoFactory.GetRepository<AttributeName>().Query
+                .Where(x => !x.IsDeleted && x.ObjectTypeId == objectTypeId && x.StartDate <= startFrom)
                 .OrderBy(x => x.Id)
+                .Select(x => new { x.Id, x.Name, x.DataType.Kind })
                 .ToArray();
+            var attributes = Array.ConvertAll(attributesTuple, x => new ColumnMetadata
+            {
+                Id = x.Id,
+                Name = x.Name,
+                DataType = ResolveType(x.Kind)
+            });
 
             var rows = _repoFactory.GetRepository<ObjectValue>().Query
-                .Where(x => !x.IsDeleted && x.StartDate >= startFrom &&
+                .Where(x => !x.IsDeleted && x.StartDate <= startFrom &&
                     x.ObjectEntityId == objectTypeId /*&& x.AttributeNameId == attributeId*/)
                 .Select(x => new
                 {
