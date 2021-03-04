@@ -11,13 +11,13 @@ select * from eav.ObjectValue
 --create tet table
 /*
 insert into eav.ObjectEntityType (Name, Author) values ('Test', NewId())
-insert into eav.AttributeName (Name, DataTypeId, ObjectTypeId, Author) values ('Id', 8, 1, NewId())
-insert into eav.AttributeName (Name, DataTypeId, ObjectTypeId, Author) values ('Name', 13, 1, NewId())
+insert into eav.AttributeName (Name, DataTypeId, ObjectTypeId, Author) values (N'Id', 8, 1, NewId())
+insert into eav.AttributeName (Name, DataTypeId, ObjectTypeId, Author) values (N'Name', 13, 1, NewId())
 
 --insert one row
 insert into eav.ObjectEntity (ObjectTypeId, Author) values (1, NewId())
-insert into eav.ObjectValue (ObjectEntityId, AttributeNameId, Value, Author) values (1, 1, '100500', NewId())
-insert into eav.ObjectValue (ObjectEntityId, AttributeNameId, Value, Author) values (1, 2, 'Тестовая строка с id=100500', NewId())
+insert into eav.ObjectValue (ObjectEntityId, AttributeNameId, Value, Author) values (1, 1, N'100500', NewId())
+insert into eav.ObjectValue (ObjectEntityId, AttributeNameId, Value, Author) values (1, 2, N'Тестовая строка с id=100500', NewId())
 */
 
 /*drop table eav.ObjectValue
