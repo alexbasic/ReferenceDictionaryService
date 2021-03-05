@@ -1,4 +1,4 @@
-﻿namespace Model.Store
+﻿namespace Common
 {
     public enum DataTypeKind : int
     {

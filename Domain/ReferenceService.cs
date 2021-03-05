@@ -1,4 +1,6 @@
-﻿using Infrastructure;
+﻿using Common;
+using Contract;
+using Infrastructure;
 using Model.Store;
 using System;
 using System.Collections.Generic;
@@ -6,7 +8,7 @@ using System.Linq;
 
 namespace Domain
 {
-    public class ReferenceService
+    public class ReferenceService : IReferenceService
     {
         private readonly IRepositoryFactory _repoFactory;
 
@@ -40,18 +42,23 @@ namespace Domain
                 .ToArray();
 
             var rows = _repoFactory.GetRepository<ObjectValue>().Query
-                .Join(_repoFactory.GetRepository<ObjectEntity>().Query, 
-                ok => ok.ObjectEntityId, 
-                ik => ik.Id, 
-                (o, i) => new { i.Guid, o.ObjectEntityId, o.AttributeNameId, o.Value,
+                .Join(_repoFactory.GetRepository<ObjectEntity>().Query,
+                ok => ok.ObjectEntityId,
+                ik => ik.Id,
+                (o, i) => new
+                {
+                    i.Guid,
+                    o.ObjectEntityId,
+                    o.AttributeNameId,
+                    o.Value,
                     ObjectEntityIsDeleted = i.IsDeleted,
                     ObjectValueIsDeleted = o.IsDeleted,
                     ObjectEntityStartDate = i.StartDate,
                     ObjectValueStartDate = o.StartDate,
                 })
-                .Where(x => !x.ObjectEntityIsDeleted && x.ObjectEntityStartDate <= startFrom && 
+                .Where(x => !x.ObjectEntityIsDeleted && x.ObjectEntityStartDate <= startFrom &&
                     !x.ObjectValueIsDeleted && x.ObjectValueStartDate <= startFrom)
-                .Select(x => new 
+                .Select(x => new
                 {
                     x.Guid,
                     x.ObjectEntityId,
@@ -61,7 +68,7 @@ namespace Domain
                 .ToArray()
                 .GroupBy(x => x.ObjectEntityId)
                 .Select((group, index) =>
-                new DataRow 
+                new DataRow
                 {
                     Columns = group.Select(y => y.Value).ToArray()
                 });
@@ -76,8 +83,24 @@ namespace Domain
 
         private Type ResolveType(DataTypeKind dataTypeKind)
         {
-            switch (dataTypeKind) 
+            switch (dataTypeKind)
             {
+                case DataTypeKind.Byte: return typeof(byte);
+                case DataTypeKind.Char: return typeof(char);
+                case DataTypeKind.DateTime: return typeof(DateTime);
+                case DataTypeKind.DateTimeOffset: return typeof(DateTimeOffset);
+                case DataTypeKind.Decimal: return typeof(decimal);
+                case DataTypeKind.Double: return typeof(double);
+                case DataTypeKind.Float: return typeof(float);
+                case DataTypeKind.Guid: return typeof(Guid);
+                case DataTypeKind.Int: return typeof(int);
+                case DataTypeKind.Long: return typeof(long);
+                case DataTypeKind.SByte: return typeof(sbyte);
+                case DataTypeKind.Short: return typeof(short);
+                case DataTypeKind.String: return typeof(string);
+                case DataTypeKind.UInt: return typeof(uint);
+                case DataTypeKind.ULong: return typeof(ulong);
+                case DataTypeKind.UShort: return typeof(ushort);
                 default: return typeof(string);
             }
         }
@@ -89,24 +112,5 @@ namespace Domain
                 default: return value;
             }
         }
-    }
-
-    public class ComplexObject
-    {
-        public string Name { get; set; }
-        public ColumnMetadata[] ColumnsMetadata { get; set; }
-        public IEnumerable<DataRow> Rows { get; set; }
-    }
-
-    public class DataRow
-    {
-        public object[] Columns { get; set; }
-    }
-
-    public class ColumnMetadata
-    {
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public Type DataType { get; set; }
     }
 }

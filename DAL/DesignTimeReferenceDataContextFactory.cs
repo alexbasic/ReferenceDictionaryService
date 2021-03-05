@@ -16,14 +16,14 @@ namespace DAL
         }
     }
 
-    /*
-     * Simple help
-     * -----------
-     * 
-     * PS>Install-Package Microsoft.EntityFrameworkCore.Tools
-     * 
-     * Add-Migration Initial
-     * Remove-Migration
-     * Update-Database
-     */
+/*
+ * Simple help
+ * -----------
+ * 
+ * PS>Install-Package Microsoft.EntityFrameworkCore.Tools
+ * 
+ * Add-Migration Initial
+ * Remove-Migration
+ * Update-Database
+ */
 }

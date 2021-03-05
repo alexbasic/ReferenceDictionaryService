@@ -1,5 +1,5 @@
 ﻿using Infrastructure;
-using Model.Common;
+using Common;
 
 namespace Model.Store
 {
