@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace Api.Controllers
 {
+    [Produces("application/json")]
     [ApiController]
     [Route("MetadataReference")]
     public class MetadataReferenceController : ControllerBase
@@ -21,18 +22,21 @@ namespace Api.Controllers
         }
 
         [HttpGet]
+        [Route("GetTypes")]
         public IEnumerable<DataTypeDescriptor> GetTypes()
         {
             return _metadataReferenceService.GetTypes();
         }
 
         [HttpGet]
+        [Route("GetAttributes")]
         public IEnumerable<AttributeNameDescriptor> GetAttributes(long objectTypeId, DateTime? startFrom)
         {
             return _metadataReferenceService.GetAttributes(startFrom ?? DateTime.Now, objectTypeId);
         }
 
         [HttpGet]
+        [Route("GetObjects")]
         public IEnumerable<ObjectEntityTypeDescriptor> GetObjects(long objectTypeId, DateTime? startFrom)
         {
             return _metadataReferenceService.GetObjectTypes(startFrom ?? DateTime.Now);

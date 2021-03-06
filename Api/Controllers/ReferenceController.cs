@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
+    [Produces("application/json")]
     [ApiController]
     [Route("Reference")]
     public class ReferenceController : ControllerBase
