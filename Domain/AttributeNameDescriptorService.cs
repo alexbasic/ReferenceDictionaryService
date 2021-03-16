@@ -37,6 +37,25 @@ namespace Domain
                 .Take(takeCount);
         }
 
+        public AttributeNameDescriptor GetById(long id)
+        {
+            return _repoFactory.GetRepository<AttributeName>().Query.Where(x => !x.IsDeleted && x.Id == id)
+                .Select(x => new AttributeNameDescriptor
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    DataTypeId = x.DataTypeId,
+                    ObjectTypeId = x.ObjectTypeId,
+                    Description = x.Description,
+                    Nullable = x.Nullable,
+                    DefaultValue = x.DefaultValue,
+                    MaxSize = x.MaxSize,
+                    MinValue = x.MinValue,
+                    MaxValue = x.MaxValue
+                })
+                .FirstOrDefault();
+        }
+
         public long Add(DateTime startFrom, DateTime? endDate, AttributeNameDescriptor attributeName)
         {
             return _repoFactory.GetRepository<AttributeName>()

@@ -9,5 +9,6 @@ namespace Contract
         long Add(DateTime startFrom, DateTime? endDate, ObjectEntityTypeDescriptor objectEntityType);
         void Delete(long id);
         IEnumerable<ObjectEntityTypeDescriptor> Get(DateTime startFrom, int takeCount, int skipCount);
+        ObjectEntityTypeDescriptor GetById(long id);
     }
 }

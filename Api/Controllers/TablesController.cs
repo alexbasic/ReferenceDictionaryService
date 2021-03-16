@@ -22,6 +22,9 @@ namespace Api.Controllers
         private readonly ILogger<TablesController> _logger;
         private readonly IReferenceService _referenceService;
 
+        /// <summary>
+        /// Контроллер справочной информации. Возвращает справочную информацию.
+        /// </summary>
         public TablesController(ILogger<TablesController> logger, IReferenceService referenceService)
         {
             _logger = logger;

@@ -29,6 +29,18 @@ namespace Domain
                 .Take(takeCount);
         }
 
+        public ObjectEntityTypeDescriptor GetById(long id)
+        {
+            return _repoFactory.GetRepository<ObjectEntityType>().Query.Where(x => !x.IsDeleted && x.Id == id)
+                .Select(x => new ObjectEntityTypeDescriptor
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description
+                })
+                .FirstOrDefault();
+        }
+
         public long Add(DateTime startFrom, DateTime? endDate, ObjectEntityTypeDescriptor objectEntityType)
         {
             return _repoFactory.GetRepository<ObjectEntityType>()
