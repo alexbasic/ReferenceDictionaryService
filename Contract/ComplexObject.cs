@@ -7,5 +7,6 @@ namespace Contract
         public string Name { get; set; }
         public ColumnMetadata[] ColumnsMetadata { get; set; }
         public IEnumerable<DataRow> Rows { get; set; }
+        public bool NotExists { get; set; }
     }
 }

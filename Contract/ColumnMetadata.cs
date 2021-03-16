@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common;
+using System;
 
 namespace Contract
 {
@@ -6,6 +7,6 @@ namespace Contract
     {
         public long Id { get; set; }
         public string Name { get; set; }
-        public Type DataType { get; set; }
+        public DataTypeKind DataTypeKind { get; set; }
     }
 }

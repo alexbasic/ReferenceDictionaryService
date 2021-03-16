@@ -1,5 +1,6 @@
 using Contract;
 using DAL;
+using DAL.Repository;
 using Domain;
 using Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -33,16 +34,28 @@ namespace Api
         {
             services.AddControllers();
 
-            services.AddTransient<IReferenceService, ReferenceService>();
-            services.AddTransient<IMetadataReference, MetadataReference>();
+            //infrastructure
+            services.AddTransient<ITransaction, Transaction>();
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IRepositoryFactory, RepositoryFactory>();
-            services.AddTransient<IMetadataReference, MetadataReference>();
 
-            services.AddDbContext<ReferenceDataContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("ReferenceDataContext")));
+            //domain
+            services.AddTransient<IReferenceService, ReferenceService>();
+            services.AddTransient<IAttributeNameDescriptorService, AttributeNameDescriptorService>();
+            services.AddTransient<IDataTypeDescriptorService, DataTypeDescriptorService>();
+            services.AddTransient<IObjectEntityTypeService, ObjectEntityTypeService>();
+
+            //data context
+            services.AddDbContext<DbContext, ReferenceDataContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ReferenceDataContext"))
+                .LogTo(x => Console.WriteLine($"EF: {x}")),
+                ServiceLifetime.Scoped,
+                ServiceLifetime.Singleton);
 
             services.AddSwaggerGen(c =>
             {
+                c.SchemaGeneratorOptions.UseAllOfToExtendReferenceSchemas = false;
+
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
@@ -61,6 +74,7 @@ namespace Api
                         Url = null,
                     }
                 });
+                //c.SchemaGeneratorOptions.UseAllOfToExtendReferenceSchemas;
 
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";

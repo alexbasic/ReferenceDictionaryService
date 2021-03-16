@@ -9,5 +9,12 @@ namespace Infrastructure
         long Create(T entity);
         void Update(T entity);
         void Delete(T entity);
+        void Delete(long entityId);
+    }
+
+    public interface ITransaction
+    {
+        void WithTransaction(Action action);
+        T WithTransaction<T>(Func<T> func);
     }
 }

@@ -9,17 +9,12 @@ namespace DAL
     {
         private readonly DbContext _context;
 
-        public RepositoryFactory(ReferenceDataContext context)
+        public RepositoryFactory(DbContext context)
         {
             _context = context;
         }
 
-        public IRepository<T> GetReadOnlyRepository<T>() where T : Entity
-        {
-            throw new NotImplementedException();
-        }
-
-        public IRepository<T> GetRepository<T>() where T : Entity
+        public IRepository<T> GetRepository<T>() where T : Entity, new()
         {
             return new Repository<T>(_context);
         }

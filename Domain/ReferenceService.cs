@@ -2,6 +2,7 @@
 using Contract;
 using Infrastructure;
 using Model.Store;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +18,18 @@ namespace Domain
             _repoFactory = repoFactory;
         }
 
-        public ComplexObject GetTable(DateTime startFrom, string name /*todo: take, skip*/)
+        public ComplexObject GetTable(DateTime startFrom, string name, int takeCount, int skipCount)
         {
             var objectTypeId = _repoFactory.GetRepository<ObjectEntityType>().Query
                 .FirstOrDefault(x => x.Name.Equals(name) && !x.IsDeleted && x.StartDate <= startFrom)?.Id ?? default(int);
-            if (objectTypeId == default(int)) throw new Exception($"Объект {name} отсутствует");
+
+            if (objectTypeId == default(int)) return new ComplexObject
+            {
+                Name = name,
+                ColumnsMetadata = new ColumnMetadata[0],
+                Rows = Enumerable.Empty<DataRow>(),
+                NotExists = true
+            };
 
             var attributes = _repoFactory.GetRepository<AttributeName>().Query
                 .Where(x => !x.IsDeleted && x.ObjectTypeId == objectTypeId && x.StartDate <= startFrom)
@@ -37,7 +45,7 @@ namespace Domain
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    DataType = ResolveType(x.DataTypeKind)
+                    DataTypeKind = x.DataTypeKind
                 })
                 .ToArray();
 
@@ -65,6 +73,8 @@ namespace Domain
                     x.AttributeNameId,
                     x.Value,
                 })
+                .Skip(skipCount)
+                .Take(takeCount)
                 .ToArray()
                 .GroupBy(x => x.ObjectEntityId)
                 .Select((group, index) =>
@@ -79,6 +89,46 @@ namespace Domain
                 ColumnsMetadata = attributes,
                 Rows = rows
             };
+        }
+
+        public IEnumerable<IDictionary<string, object>> GetJsonTable(DateTime startFrom, string name, int takeCount, int skipCount)
+        {
+            var rows = _repoFactory.GetRepository<ObjectValue>().Query
+                .Join(_repoFactory.GetRepository<ObjectEntity>().Query,
+                ok => ok.ObjectEntityId,
+                ik => ik.Id,
+                (o, i) => new
+                {
+                    i.Guid,
+                    ObjectEntityId = i.Id,
+                    AttributeName = o.Attribute.Name,
+                    o.Value,
+                    ObjectEntityIsDeleted = i.IsDeleted,
+                    ObjectValueIsDeleted = o.IsDeleted,
+                    ObjectEntityStartDate = i.StartDate,
+                    ObjectValueStartDate = o.StartDate,
+                })
+                .Where(x => !x.ObjectEntityIsDeleted && x.ObjectEntityStartDate <= startFrom &&
+                    !x.ObjectValueIsDeleted && x.ObjectValueStartDate <= startFrom)
+                .Select(x => new
+                {
+                    x.Guid,
+                    x.ObjectEntityId,
+                    x.AttributeName,
+                    x.Value,
+                })
+                .Skip(skipCount)
+                .Take(takeCount)
+                .ToArray()
+                .GroupBy(x => x.ObjectEntityId)
+                .Select((group) =>
+                {
+                    var result = group.ToDictionary(k => k.AttributeName, v => (object)v.Value);
+                    result.Add(nameof(Guid), group.First().Guid);
+                    return result;
+                });
+            
+            return rows;
         }
 
         private Type ResolveType(DataTypeKind dataTypeKind)
